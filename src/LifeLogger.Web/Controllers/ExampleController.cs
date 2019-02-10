@@ -66,5 +66,14 @@ namespace LifeLogger.Web.Controllers
                 .Select(x => x.ExampleDescription)
                 .ToListAsync();
         }
+
+        [HttpPost("Add")]
+        public async Task<ActionResult<ExampleEntity>> Add(ExampleEntity entitiy)
+        {
+            _context.Add(entitiy);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetExampleEntityById), new {id = entitiy.ExampleId}, entitiy);
+        }
     }
 }
