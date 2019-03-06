@@ -1,0 +1,23 @@
+mat-toolbar {
+    background: #252525;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    span {
+        color: white;
+    }
+
+    .logo {
+        font-weight: bold;
+        height: auto;
+        margin: auto 0;
+        color: white;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+    .example-fill-remaining-space {
+        flex: 1 1 auto;
+      }
+}
