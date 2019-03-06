@@ -13,20 +13,20 @@ body {
     font-size: 18px;
 }
 
-// a {
-//     text-decoration: none;
-//     color: white;
-//     text-transform: uppercase;
-// }
+a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
 
 .main-content {
     display: flex;
     align-items: center;
     flex-flow: column wrap;
     position: absolute;
-    margin-top: 64px;
-    margin-bottom: 64px;
-    height: 100%;
+    top: 4em;
+    bottom: 4em;
+    height: auto;
     width: 100%;
     background: #404040;
     color: #ffffff;
