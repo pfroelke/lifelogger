@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import * as crypto from 'crypto-js';
 
 import { AlertService } from '../../services/alert.service';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
-
 
 @Component({
   selector: 'app-register',
@@ -33,10 +33,11 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+          username: ['', Validators.required],
+          firstName: ['', Validators.required],
+          lastName: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, Validators.minLength(6)]]
         });
     }
 
@@ -50,18 +51,20 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         }
+        console.log(this.registerForm.value);
 
-        this.loading = true;
-        // this.userService.register(this.registerForm.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.alertService.success('Registration successful', true);
-        //             this.router.navigate(['/login']);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+        this.registerForm.value.password = crypto.SHA256(this.registerForm.value.password).toString();
+
+        this.userService.register(this.registerForm.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    // this.alertService.success('Registration successful', true);
+                    this.router.navigate(['/']);
+                },
+                error => {
+                    // this.alertService.error(error);
+                    // this.loading = false;
+                });
     }
 }
