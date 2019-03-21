@@ -3,27 +3,36 @@ import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './layout/app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    // HttpModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

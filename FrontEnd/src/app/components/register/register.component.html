@@ -1,6 +1,17 @@
 <div class="main-content container">
   <h2>Register</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          formControlName="username"
+          class="form-control"
+          [ngClass]="!f.username.errors ? 'is-valid' : 'is-invalid'"
+        />
+        <label class="hint">Username is required</label>
+        <div class="bar"></div>
+      </div>
     <div class="form-group">
       <label for="firstName">First Name</label>
       <input
@@ -24,14 +35,14 @@
       <div class="bar"></div>
     </div>
     <div class="form-group">
-      <label for="username">Username</label>
+      <label for="email">E-Mail</label>
       <input
         type="text"
-        formControlName="username"
+        formControlName="email"
         class="form-control"
-        [ngClass]="!f.username.errors ? 'is-valid' : 'is-invalid'"
+        [ngClass]="!f.email.errors ? 'is-valid' : 'is-invalid'"
       />
-      <label class="hint">Username is required</label>
+      <label class="hint">E-Mail is required</label>
       <div class="bar"></div>
     </div>
     <div class="form-group">
@@ -43,9 +54,9 @@
         [ngClass]="!f.password.errors ? 'is-valid' : 'is-invalid'"
       />
       <label class="hint">{{
-        f.password.errors && f.password.errors.required
+        f.password.errors && f.password.errors.minLength
           ? "Password is required"
-          : "Password must be at least 6 characters"
+          : "Password must contain at least 6 characters"
       }}</label>
       <div class="bar"></div>
     </div>
