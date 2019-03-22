@@ -13,5 +13,6 @@ namespace LifeLogger.Models.Entity
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime RegisteredDate { get; set; }
+        public byte[] Salt { get; set; }
     }
 }

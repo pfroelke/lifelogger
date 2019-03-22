@@ -83,6 +83,8 @@ namespace LifeLogger.Web.Migrations
 
                     b.Property<DateTime>("RegisteredDate");
 
+                    b.Property<byte[]>("Salt");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");

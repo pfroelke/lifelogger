@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LifeLogger.Web.Migrations
 {
     [DbContext(typeof(LifeLoggerDbContext))]
-    [Migration("20190322000845_InitialCreate")]
+    [Migration("20190322115501_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,8 @@ namespace LifeLogger.Web.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<DateTime>("RegisteredDate");
+
+                    b.Property<byte[]>("Salt");
 
                     b.Property<string>("SecurityStamp");
 

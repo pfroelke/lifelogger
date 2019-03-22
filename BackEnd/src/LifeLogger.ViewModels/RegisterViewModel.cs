@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LifeLogger.Models.Entity;
+using LifeLogger.Commons;
 
 namespace LifeLogger.ViewModels
 {
@@ -27,13 +28,15 @@ namespace LifeLogger.ViewModels
 
         public static implicit operator User(RegisterViewModel vm)
         {
+           var salt = PasswordHasher.GenerateSalt();
             return new User
             {
                 FirstName = vm.FirstName,
                 LastName = vm.LastName,
                 UserName = vm.UserName,
                 Email = vm.Email,
-                PasswordHash = vm.Password
+                Salt = salt,
+                PasswordHash = PasswordHasher.HashPassword(vm.Password, salt)
             };
         }
     }

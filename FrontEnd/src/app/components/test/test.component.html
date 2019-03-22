@@ -1,6 +1,12 @@
 <div class="main-content container">
-<p>
-  test works!
-  {{ users }}
-</p>
+  <table>
+    <ng-container *ngIf="users.length">
+       <tbody *ngFor="let user of users; let i = index">
+         <tr>
+           <td>{{user.userName}}</td>
+           <td>{{user.email}}</td>
+         </tr>
+       </tbody>
+     </ng-container>
+   </table>
 </div>

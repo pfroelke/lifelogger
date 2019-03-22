@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using LifeLogger.Models.Entity;
 using LifeLogger.Models.Context;
 using LifeLogger.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace LifeLogger.Web.Controllers
 {
     [Route("api/[controller]")]
-    // [ApiController]
     public class UserController : Controller
     {
         private readonly LifeLoggerDbContext _context;
@@ -20,9 +20,9 @@ namespace LifeLogger.Web.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return Content("<xml>This is poorly formatted xml. Index</xml>", "text/xml");
+            return Json(await _context.Users.Select(p => new { p.UserName, p.FirstName, p.Email, p.LastName, p.PasswordHash }).ToListAsync());
         }
 
         [HttpGet("Details")]
@@ -31,9 +31,6 @@ namespace LifeLogger.Web.Controllers
             return Content("<xml>This is poorly formatted xml. Details</xml>", "text/xml");
         }
 
-        // POST: User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("Register")]
         // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
@@ -41,9 +38,6 @@ namespace LifeLogger.Web.Controllers
             IActionResult response = BadRequest(ModelState);
             if (ModelState.IsValid)
             {
-                // var user = _mapper.Map(model);
-                //var result = await _userManager.CreateAsync(user, model.Password);
-
                 // if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
                 _context.Add((User)model);
