@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { first } from 'rxjs/operators';
 
+import { User } from 'src/app/models/user';
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -9,7 +11,7 @@ import { first } from 'rxjs/operators';
 })
 export class TestComponent implements OnInit {
 
-  users: string[] = [];
+  users: User[] = [];
 
   constructor( private userService: UserService ) { }
 

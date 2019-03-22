@@ -125,17 +125,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\LifeLoggerDbContext.cs" />
-    <Compile Include="Entity\LoggedItem.cs" />
-    <Compile Include="Entity\Tag.cs" />
     <Compile Include="ExampleDbContext.cs" />
     <Compile Include="ExampleEntity.cs" />
     <Compile Include="ExampleRepo.cs" />
-    <Compile Include="Migrations\20190211001901_InitialCreate.cs" />
-    <Compile Include="Migrations\20190211001901_InitialCreate.designer.cs">
-      <DependentUpon>20190211001901_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\LifeLoggerDbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

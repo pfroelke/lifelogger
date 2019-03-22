@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeLogger.Core.Entity
+namespace LifeLogger.Models.Entity
 {
     public class Tag
     {

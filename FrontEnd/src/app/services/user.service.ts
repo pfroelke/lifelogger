@@ -16,15 +16,14 @@ export class UserService {
     // super(helper);
    }
 
-  getUsers(): Observable<string[]> {
+//   getUsers(): Observable<string[]> {
+//         const header = new HttpHeaders({ 'Content-Type': 'application/json' });
+//         return this.http.get<string[]>(`${this.pathAPI}/values`, { headers: header});
+//     }
+    getUsers(): Observable<User[]> {
         const header = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.get<string[]>(`${this.pathAPI}/values`, { headers: header});
+        return this.http.get<User[]>(`${this.pathAPI}/users`, { headers: header});
     }
-    // getUsers (): Observable<User[]> {
-
-    //   return this.http.get(this.pathAPI + 'user', super.header()).pipe(
-    //   catchError(super.handleError));
-    // }
 
     getById(id: number) {
         return this.http.get(`${this.pathAPI}/users/${id}`);

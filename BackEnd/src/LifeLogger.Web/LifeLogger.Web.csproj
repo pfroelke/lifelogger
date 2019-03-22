@@ -10,12 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LifeLogger.Models\LifeLogger.Models.csproj" />
+    <ProjectReference Include="..\LifeLogger.ViewModels\LifeLogger.ViewModels.csproj" />
     <ProjectReference Include="..\LifeLogger.Contract\LifeLogger.Contract.csproj" />
-    <ProjectReference Include="..\LifeLogger.Core\LifeLogger.Core.csproj" />
   </ItemGroup>
 
 </Project>
