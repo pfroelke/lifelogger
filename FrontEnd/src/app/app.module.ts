@@ -13,6 +13,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { TestComponent } from './components/test/test.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TestComponent } from './components/test/test.component';
     HeaderComponent,
     FooterComponent,
     AlertComponent,
-    TestComponent
+    TestComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
