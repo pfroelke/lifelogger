@@ -1,8 +1,10 @@
 mat-toolbar {
-    background: #252525;
+    background: #fcfcfc;
     position: absolute;
     top: 0px;
     left: 0px;
+    border-bottom: 3px solid #666666;
+    border-color: #666666;
 
     span {
         color: white;
@@ -12,7 +14,7 @@ mat-toolbar {
         font-weight: bold;
         height: auto;
         margin: auto 0;
-        color: white;
+        color: #666666;
         text-transform: uppercase;
         text-decoration: none;
     }

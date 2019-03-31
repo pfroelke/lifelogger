@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LifeLogger.Models.Entity;
+﻿using LifeLogger.Models.Entity;
 using LifeLogger.Commons;
 
 namespace LifeLogger.ViewModels
@@ -14,17 +11,17 @@ namespace LifeLogger.ViewModels
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public static implicit operator RegisterViewModel(User user)
-        {
-            return new RegisterViewModel
-            {
-                UserName = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Password = user.PasswordHash
-            };
-        }
+        //public static implicit operator RegisterViewModel(User user)
+        //{
+        //    return new RegisterViewModel
+        //    {
+        //        UserName = user.UserName,
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        Email = user.Email,
+        //        Password = user.PasswordHash
+        //    };
+        //}
 
         public static implicit operator User(RegisterViewModel vm)
         {

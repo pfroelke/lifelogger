@@ -6,7 +6,6 @@ import * as crypto from 'crypto-js';
 
 import { AlertService } from '../../services/alert.service';
 import { UserService } from '../../services/user.service';
-import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -15,13 +14,12 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
-    loading = false;
+    invalidRegister = false;
     submitted = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
     ) {
@@ -53,18 +51,27 @@ export class RegisterComponent implements OnInit {
         }
         console.log(this.registerForm.value);
 
-        this.registerForm.value.password = crypto.SHA256(this.registerForm.value.password).toString();
+        const { username, firstName, lastName, email, password } = this.registerForm.value;
+        const user = {
+          username,
+          firstName,
+          lastName,
+          email,
+          password : crypto.SHA256(password).toString()
+        };
 
-        this.userService.register(this.registerForm.value)
+        this.userService.register(user as any)
             .pipe(first())
             .subscribe(
                 data => {
                     // this.alertService.success('Registration successful', true);
+                    this.invalidRegister = false;
                     this.router.navigate(['/']);
                 },
                 error => {
-                    // this.alertService.error(error);
-                    // this.loading = false;
+                    // this.alertService.error(error.error);
+                    console.log(error.error);
+                    this.invalidRegister = true;
                 });
     }
 }

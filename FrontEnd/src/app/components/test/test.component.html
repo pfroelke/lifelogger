@@ -1,8 +1,10 @@
 <div class="main-content container">
+  <h2>testing site</h2>
   <table>
     <ng-container *ngIf="users.length">
        <tbody *ngFor="let user of users; let i = index">
          <tr>
+           <td>{{i}}</td>
            <td>{{user.userName}}</td>
            <td>{{user.email}}</td>
            <td>{{user.firstName}}</td>

@@ -13,7 +13,7 @@ form {
       width: 350px;
   
       label {
-        color: #6d7781;
+        color: #999999;
         text-transform: uppercase;
         position: absolute;
         height: 10px;
@@ -34,7 +34,7 @@ form {
         vertical-align: middle;
         border: 0;
         font-size: 16px;
-        color: #ffffff;
+        color: #666666;
         padding: 20px 0;
         outline: none;
         width: 100%;
@@ -43,10 +43,10 @@ form {
           & + label {
             visibility: visible;
             opacity: 1;
-            color: #f06d06;
+            color: #f06d00;
   
             & + div.bar {
-              border-color: #f06d06;
+              border-color: #f06d00;
             }
           }
         }
@@ -59,7 +59,7 @@ form {
       button {
         width: 100%;
         font-size: 16px;
-        background-color: dodgerblue;
+        background-color: #f06d00;
         border: 0;
         border-radius: 5px;
         padding: 10px 0;
@@ -67,7 +67,7 @@ form {
         transition: background-color 1s;
   
         &:hover {
-          background-color: royalblue;
+          background-color: #d15b00;
         }
   
         &.is-valid {
@@ -76,7 +76,7 @@ form {
       }
   
       div.bar {
-        border-bottom: 1px solid #435160;
+        border-bottom: 1px solid #666666;
         width: 100%;
         height: 1px;
         transition: border-color 1s;
