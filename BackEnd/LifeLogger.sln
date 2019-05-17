@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeLogger.ViewModels", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeLogger.Models", "src\LifeLogger.Models\LifeLogger.Models.csproj", "{2E8E080D-5C69-44C3-811C-D62221E9338B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeLogger.Commons", "LifeLogger.Commons\LifeLogger.Commons.csproj", "{269A5ED0-7A7D-4E26-8DA8-A8287198E09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeLogger.Commons", "LifeLogger.Commons\LifeLogger.Commons.csproj", "{269A5ED0-7A7D-4E26-8DA8-A8287198E09E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeLogger.Services", "LifeLogger.Services\LifeLogger.Services.csproj", "{075164F2-96A6-4E64-AF7A-181D395427B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{269A5ED0-7A7D-4E26-8DA8-A8287198E09E} = {269A5ED0-7A7D-4E26-8DA8-A8287198E09E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,10 @@ Global
 		{269A5ED0-7A7D-4E26-8DA8-A8287198E09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{269A5ED0-7A7D-4E26-8DA8-A8287198E09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{269A5ED0-7A7D-4E26-8DA8-A8287198E09E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075164F2-96A6-4E64-AF7A-181D395427B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075164F2-96A6-4E64-AF7A-181D395427B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075164F2-96A6-4E64-AF7A-181D395427B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075164F2-96A6-4E64-AF7A-181D395427B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

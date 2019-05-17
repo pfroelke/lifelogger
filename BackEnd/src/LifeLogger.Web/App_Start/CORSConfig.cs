@@ -12,7 +12,7 @@ namespace LifeLogger.Web.App_Start
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:4200",
-                        // "https://localhost:4200",
+                        "https://localhost:4200",
                         "http://example.com")
                         .AllowAnyMethod()
                         .AllowAnyHeader()

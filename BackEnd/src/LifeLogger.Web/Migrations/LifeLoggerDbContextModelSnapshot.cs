@@ -81,7 +81,7 @@ namespace LifeLogger.Web.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<DateTime>("RegisteredDate");
+                    b.Property<DateTime>("RegistrationDate");
 
                     b.Property<byte[]>("Salt");
 

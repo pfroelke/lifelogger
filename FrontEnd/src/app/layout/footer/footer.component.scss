@@ -1,10 +1,16 @@
-mat-toolbar {
+.footer {
     background: #444444;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+    width: 100vw;
 
     .example-fill-remaining-space {
         flex: 1 1 auto;
       }
+    p.copyright {
+      color: #999999;
+      font-size: 12px;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      margin: 5px;
+    }
 }

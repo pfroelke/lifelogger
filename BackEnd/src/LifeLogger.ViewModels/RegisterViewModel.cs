@@ -1,5 +1,6 @@
 ﻿using LifeLogger.Models.Entity;
 using LifeLogger.Commons;
+using System;
 
 namespace LifeLogger.ViewModels
 {
@@ -33,8 +34,9 @@ namespace LifeLogger.ViewModels
                 UserName = vm.UserName,
                 Email = vm.Email,
                 Salt = salt,
-                PasswordHash = PasswordHasher.HashPassword(vm.Password, salt)
-            };
+                PasswordHash = PasswordHasher.HashPassword(vm.Password, salt),
+                RegistrationDate = DateTime.UtcNow
+        };
         }
     }
 }

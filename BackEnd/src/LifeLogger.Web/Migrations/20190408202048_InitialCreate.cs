@@ -41,7 +41,7 @@ namespace LifeLogger.Web.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    RegisteredDate = table.Column<DateTime>(nullable: false),
+                    RegistrationDate = table.Column<DateTime>(nullable: false),
                     Salt = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>

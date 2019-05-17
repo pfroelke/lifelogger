@@ -1,13 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 
@@ -15,6 +9,7 @@ using LifeLogger.Commons;
 using LifeLogger.ViewModels;
 using LifeLogger.Models.Entity;
 using LifeLogger.Models.Context;
+using LifeLogger.Services;
 
 namespace LifeLogger.Web.Controllers
 {
@@ -23,17 +18,27 @@ namespace LifeLogger.Web.Controllers
     {
         private readonly LifeLoggerDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IJWTHandler _JWTHandler;
+        private readonly IUserService _userService;
 
-        public UserController(LifeLoggerDbContext context, IConfiguration configuration)
+        public UserController(LifeLoggerDbContext context, IConfiguration configuration, IJWTHandler JWTHandler, IUserService userService)
         {
             _context = context;
             _config = configuration;
+            _JWTHandler = JWTHandler;
+            _userService = userService;
         }
 
         [HttpGet, Authorize]
         public async Task<IActionResult> Index()
         {
             return Json(await _context.Users.ToListAsync());
+        }
+
+        [HttpGet("isLoggedIn"), Authorize]
+        public IActionResult IsLoggedIn()
+        {
+            return Ok();
         }
 
         [HttpGet("Details")]
@@ -49,10 +54,7 @@ namespace LifeLogger.Web.Controllers
             IActionResult response = BadRequest(ModelState);
             if (ModelState.IsValid)
             {
-                // if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
-
-                _context.Add((User)user);
-                await _context.SaveChangesAsync();
+                await _userService.AddUserAsync(user);
                 response = Ok("Account created!");
             }
             return response;
@@ -64,15 +66,15 @@ namespace LifeLogger.Web.Controllers
             IActionResult response = BadRequest(ModelState);
             if (ModelState.IsValid)
             {
-                User userFound = null;
-                userFound = await _context.Users.Where(x => x.UserName == user.UserName).FirstOrDefaultAsync();
+                User userFound = await _userService.GetUserByNameAsync(user.UserName);
 
                 if (userFound != null)
                 {
                     if (userFound.PasswordHash == PasswordHasher.HashPassword(user.Password, userFound.Salt))
                     {
-                        var tokenString = BuildToken(userFound);
-                        response = Ok(new { auth_token = tokenString });
+                        JWT jwt = _JWTHandler.CreateToken(userFound);
+                        UserViewModel vm = userFound;
+                        response = Ok(value: new { jwt, user = vm });
                     }
                     else response = Unauthorized("Wrong Password!");
                 }
@@ -81,22 +83,21 @@ namespace LifeLogger.Web.Controllers
             return response;
         }
 
-        private string BuildToken(User user)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.RsaSha256Signature);
-            var claimsList = new List<Claim>
+            IActionResult response = BadRequest(ModelState);
+            if (ModelState.IsValid)
+            {
+                User userFound =  await _userService.GetUserByIdAsync(id);
+
+                if (userFound != null)
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                };
-
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Audience"],
-              claims: claimsList,
-              expires: DateTime.Now.AddMinutes(60),
-              signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                    response = Json(userFound);
+                }
+                else response = NotFound(id);
+            }
+            return response;
         }
     }
 }

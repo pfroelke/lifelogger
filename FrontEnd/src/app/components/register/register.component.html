@@ -2,12 +2,12 @@
   <h2>Register</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="userName">Username</label>
         <input
           type="text"
-          formControlName="username"
+          formControlName="userName"
           class="form-control"
-          [ngClass]="!f.username.errors ? 'is-valid' : 'is-invalid'"
+          [ngClass]="!f.userName.errors ? 'is-valid' : 'is-invalid'"
         />
         <label class="hint">Username is required</label>
         <div class="bar"></div>

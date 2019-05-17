@@ -2,46 +2,35 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 body, html {
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    position: fixed;
-}
-
-body {
+    margin: 0;
     font-family: 'Montserrat';
-    font-size: 18px;
-}
-
-// a {
-//     text-decoration: none;
-//     color: white;
-//     text-transform: uppercase;
-// }
-
-.main-content {
-    display: flex;
-    align-items: center;
-    flex-flow: column wrap;
-    position: absolute;
-    margin-top: 64px;
-    margin-bottom: 64px;
-    height: 100%;
-    width: 100%;
-    background: #efefef;
+    font-size: 16px;
     color: #666666;
-
-    h2 {
-        color: #666666;
-    }
 }
 
-section {
-    width: 80%;
-    margin: 0 auto;
-    padding: 2em;
+a {
+    color: #666666;
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 0;
 }
 
 .hidden {
     visibility: hidden;
+}
+
+.color {
+    color: #1fce6d//#8CAA46;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
 }
