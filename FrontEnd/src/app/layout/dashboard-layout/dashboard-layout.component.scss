@@ -1,28 +1,24 @@
 :host {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 app-middle-container {
-  width: 100vw;
-  flex: 1 1 auto;
-  flex-direction: row;
-  display: flex;
-
   app-sidenav {
     flex: 0 0;
     order: -1;
-    background: #f0f0f0;
-    border-right: 1px solid #666666;
+    background: #ffffff;
+    border-right: 2px solid #c8c8c8;
+    overflow-x: hidden;
 
     a {
       display: block;
       padding: 5px;
-      border-bottom-color: rgb(200, 200, 200);
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
+      border-bottom: 1px solid #c8c8c8;
+      transition: all 0.15s linear;
       &:hover {
         background: #d7d7d7;
+        padding-left: 15px;
       }
     }
 
@@ -30,13 +26,8 @@ app-middle-container {
       display: block;
       padding: 5px;
       margin: 0;
-      border-bottom-color: rgb(200, 200, 200);
-      border-bottom-width: 2px;
-      border-bottom-style: solid;
+      border-bottom: 1px solid #c8c8c8;
+      font-size: 22px;
     }
-  }
-  app-content {
-    width: 100%;
-    padding: 25px;
   }
 }

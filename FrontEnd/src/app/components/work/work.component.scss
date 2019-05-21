@@ -1,0 +1,21 @@
+:host {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    div {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        &.content {
+            margin-top: 25px;
+            flex-direction: row;
+            flex: 1 1 auto;
+        }
+        // &.left {
+        //     margin-right: 25px;
+        // }
+        // &.right {
+        //     background-color: gray;
+        // }
+    }
+}

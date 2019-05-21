@@ -7,7 +7,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./dashboard-layout.component.scss']
 })
 export class DashboardLayoutComponent implements OnInit {
-  sidenavWidth = 50;
 
   constructor(private userService: UserService) { }
 
@@ -16,14 +15,6 @@ export class DashboardLayoutComponent implements OnInit {
 
   logout() {
     this.userService.logOut();
-  }
-
-  sidenavOpen() {
-    this.sidenavWidth = 300;
-  }
-
-  sidenavClose() {
-    this.sidenavWidth = 50;
   }
 
 }

@@ -6,6 +6,7 @@ body, html {
     font-family: 'Montserrat';
     font-size: 16px;
     color: #666666;
+    overflow: hidden;
 }
 
 a {
@@ -13,8 +14,7 @@ a {
     text-decoration: none;
 }
 
-h2 {
-    font-size: 22px;
+h2, h3 {
     margin: 0;
 }
 
@@ -33,4 +33,107 @@ h2 {
 button {
     border: 0;
     background-color: transparent;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-flow: column wrap;
+    margin-top: 25px;
+
+    div.form-group {
+        position: relative;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        flex-flow: row wrap;
+        margin: 0 0 10px 0;
+        width: 350px;
+
+        label {
+        color: #999999;
+        text-transform: uppercase;
+        position: absolute;
+        height: 10px;
+        font-size: 10px;
+        top: 0;
+        }
+
+        label.hint {
+        visibility: hidden;
+        opacity: 0;
+        bottom: 3px;
+        top: auto;
+        transition: visibility 1s, color 1s, opacity 1s;
+        }
+
+        input, textarea {
+        background-color: transparent;
+        vertical-align: middle;
+        border: 0;
+        font-size: 16px;
+        color: #666666;
+        padding: 20px 0;
+        outline: none;
+        width: 100%;
+
+        &:focus.is-invalid {
+            & + label {
+            visibility: visible;
+            opacity: 1;
+            color: #f06d00;
+
+            & + div.bar {
+                border-color: #f06d00;
+            }
+            }
+        }
+
+        &.is-valid ~ div.bar {
+            border-color: #1fce6d;
+        }
+        }
+
+        button {
+        width: 100%;
+        font-size: 16px;
+        background-color: #f06d00;
+        border: 0;
+        border-radius: 5px;
+        padding: 10px 0;
+        color: white;
+        transition: background-color 1s;
+
+        &:hover {
+            background-color: #d15b00;
+        }
+
+        &.is-valid {
+            background-color: #1fce6d;
+        }
+        }
+
+        div.bar {
+        border-bottom: 1px solid #666666;
+        width: 100%;
+        height: 1px;
+        transition: border-color 1s;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

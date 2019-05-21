@@ -1,0 +1,14 @@
+<h3>History</h3>
+<table>
+    <ng-container *ngIf="users.length">
+        <tbody *ngFor="let user of users; let i = index">
+            <tr>
+            <td>{{i}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{i}}</td>
+            </tr>
+        </tbody>
+    </ng-container>
+</table>

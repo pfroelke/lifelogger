@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LifeLogger.Services\LifeLogger.Services.csproj" />
+    <ProjectReference Include="..\LifeLogger.Services\LifeLogger.Services.csproj" />
     <ProjectReference Include="..\LifeLogger.Models\LifeLogger.Models.csproj" />
     <ProjectReference Include="..\LifeLogger.ViewModels\LifeLogger.ViewModels.csproj" />
     <ProjectReference Include="..\LifeLogger.Contract\LifeLogger.Contract.csproj" />

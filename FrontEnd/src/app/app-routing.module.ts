@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { TestComponent } from './components/test/test.component';
-import { AuthGuard } from './guards/auth.guard';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
+
 import { SimpleLayoutComponent } from './layout/simple-layout/simple-layout.component';
-import { IndexComponent } from './index/index.component';
+import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
+
+import { IndexComponent } from './components/index/index.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WorkComponent } from './components/work/work.component';
+
+import { TestComponent } from './components/test/test.component';
+
+import { AuthGuard } from './guards/auth.guard';
 // import { CvComponent } from './cv/cv.component';
-// import { CvEnglishComponent } from './cv-english/cv-english.component';
+import { CvEnglishComponent } from './cv-english/cv-english.component';
 
 const routes: Routes = [
   {
@@ -19,14 +24,15 @@ const routes: Routes = [
     ]
   },
   {
-    path: '', component: DashboardLayoutComponent,
+    path: '', component: DashboardLayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'work', component: WorkComponent },
       { path: 'test', component: TestComponent }
     ]
   },
   // { path: 'cv', component: CvComponent },
-  // { path: 'cveng', component: CvEnglishComponent },
+  { path: 'cveng', component: CvEnglishComponent },
   { path: '**', redirectTo: '' }
 ];
 

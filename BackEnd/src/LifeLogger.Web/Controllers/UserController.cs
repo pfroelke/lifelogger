@@ -93,7 +93,7 @@ namespace LifeLogger.Web.Controllers
 
                 if (userFound != null)
                 {
-                    response = Json(userFound);
+                    response = Json((UserViewModel)userFound);
                 }
                 else response = NotFound(id);
             }

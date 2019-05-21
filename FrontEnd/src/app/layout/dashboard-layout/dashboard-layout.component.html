@@ -1,8 +1,9 @@
 <app-header></app-header>
 <app-middle-container>
-  <app-sidenav #sidenav [ngStyle]="{ 'flex-basis.px': sidenav.width }" (mouseenter)="sidenav.open()"  (mouseleave)="sidenav.close()">
+  <app-sidenav #sidenav [ngStyle]="{ 'flex-basis.px': sidenav.width, 'overflow-y' : sidenav.opened ? 'auto' : 'hidden' }" (mouseenter)="sidenav.open()"  (mouseleave)="sidenav.close()">
     <h2>N<span *ngIf="sidenav.opened">avigation</span></h2>
     <a routerLink="/dashboard" routerLinkActive="active">D<span *ngIf="sidenav.opened">ashboard</span></a>
+    <a routerLink="/work" routerLinkActive="active">W<span *ngIf="sidenav.opened">ork</span></a>
     <a routerLink="/test" routerLinkActive="active">T<span *ngIf="sidenav.opened">esting</span></a>
     <a routerLink="/" (click)="logout()">L<span *ngIf="sidenav.opened">ogout</span></a>
   </app-sidenav>

@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
 
   updateUser(user: User) {
     this.currentUser = user;
-    console.log(this.currentUser);
   }
 
 }

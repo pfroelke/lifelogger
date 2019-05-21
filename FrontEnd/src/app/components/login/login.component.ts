@@ -35,31 +35,30 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
+      this.submitted = true;
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
-        console.log(this.loginForm.value);
+      // stop here if form is invalid
+      if (this.loginForm.invalid) {
+          return;
+      }
+      console.log(this.loginForm.value);
 
-        const { userName, password } = this.loginForm.value;
+      const { userName, password } = this.loginForm.value;
 
-        this.userService.login(userName, crypto.SHA256(password).toString())
-            .pipe(first())
-            .subscribe(
-                data => {
-                    // this.alertService.success('Registration successful', true);
-                    console.log('login successful');
-                    this.invalidLogin = false;
-                    this.router.navigate(['/dashboard']);
-                },
-                error => {
-                    // this.alertService.error(error.error);
-                    console.log('login failed');
-                    console.log(error.error);
-                    this.invalidLogin = true;
-                });
+      this.userService.login(userName, crypto.SHA256(password).toString())
+        .pipe(first())
+        .subscribe(
+          data => {
+            // this.alertService.success('Registration successful', true);
+            console.log('login successful');
+            this.invalidLogin = false;
+            this.router.navigate(['/dashboard']);
+          },
+          error => {
+            // this.alertService.error(error.error);
+            console.log('login failed');
+            console.log(error.error);
+            this.invalidLogin = true;
+          });
     }
-
 }

@@ -1,0 +1,42 @@
+<h3>Settings</h3>
+<form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input
+        type="text"
+        formControlName="companyName"
+        class="form-control"
+        [ngClass]="!f.companyName.errors ? 'is-valid' : 'is-invalid'"
+        />
+        <div class="bar"></div>
+    </div>
+    <div class="form-group">
+        <label for="jobTitle">Job title</label>
+        <input
+        type="text"
+        formControlName="jobTitle"
+        class="form-control"
+        [ngClass]="!f.jobTitle.errors ? 'is-valid' : 'is-invalid'"
+        />
+        <div class="bar"></div>
+    </div>
+    <div class="form-group">
+        <label for="incomePerHour">Income per hour</label>
+        <input
+        type="text"
+        formControlName="incomePerHour"
+        class="form-control"
+        [ngClass]="!f.incomePerHour.errors ? 'is-valid' : 'is-invalid'"
+        />
+        <div class="bar"></div>
+    </div>
+    <div class="form-group">
+        <button
+        [disabled]="loading"
+        class="btn btn-primary"
+        [ngClass]="this.settingsForm.valid ? 'is-valid' : 'is-invalid'"
+        >
+        Update
+        </button>
+    </div>
+</form>

@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LifeLogger.Commons\LifeLogger.Commons.csproj" />
-    <ProjectReference Include="..\src\LifeLogger.Models\LifeLogger.Models.csproj" />
+    <ProjectReference Include="..\LifeLogger.Models\LifeLogger.Models.csproj" />
   </ItemGroup>
 
 </Project>

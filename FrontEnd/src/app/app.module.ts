@@ -7,22 +7,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './layout/app.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { AlertComponent } from './components/alert/alert.component';
-import { TestComponent } from './components/test/test.component';
-import { LoginComponent } from './components/login/login.component';
-import { JwtInterceptor } from './helpers/jwt.interceptor';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 import { SimpleLayoutComponent } from './layout/simple-layout/simple-layout.component';
-import { IndexComponent } from './index/index.component';
-import { SidenavComponent } from './layout/sidenav/sidenav.component';
-import { MiddleContainerComponent } from './layout/middle-container/middle-container.component';
-import { ContentComponent } from './layout/content/content.component';
+
+import { HeaderComponent } from './layout/components/header/header.component';
+import { FooterComponent } from './layout/components/footer/footer.component';
+import { MiddleContainerComponent } from './layout/components/middle-container/middle-container.component';
+import { SidenavComponent } from './layout/components/sidenav/sidenav.component';
+import { ContentComponent } from './layout/components/content/content.component';
+import { BoxComponent } from './layout/components/box/box.component';
+import { AlertComponent } from './layout/components/alert/alert.component';
+
+import { TestComponent } from './components/test/test.component';
+import { IndexComponent } from './components/index/index.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WorkComponent } from './components/work/work.component';
+import { WorkdayComponent } from './components/work/workday/workday.component';
+import { WorkhistoryComponent } from './components/work/workhistory/workhistory.component';
+import { WorksettingsComponent } from './components/work/worksettings/worksettings.component';
+
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+
 // import { CvComponent } from './cv/cv.component';
-// import { CvEnglishComponent } from './cv-english/cv-english.component';
+import { CvEnglishComponent } from './cv-english/cv-english.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +48,14 @@ import { ContentComponent } from './layout/content/content.component';
     IndexComponent,
     SidenavComponent,
     MiddleContainerComponent,
-    ContentComponent
+    ContentComponent,
+    WorkComponent,
+    WorkdayComponent,
+    WorkhistoryComponent,
+    WorksettingsComponent,
+    BoxComponent,
     // CvComponent,
-    // CvEnglishComponent
+    CvEnglishComponent
   ],
   imports: [
     BrowserModule,
