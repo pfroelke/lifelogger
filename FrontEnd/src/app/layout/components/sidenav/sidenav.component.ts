@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
@@ -6,23 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  width = 26;
-  opened = false;
+  @Input() opened: boolean;
 
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
   }
 
   open() {
     this.opened = true;
-    this.width = 300;
   }
 
   close() {
     this.opened = false;
-    this.width = 26;
   }
 
   toggle() {

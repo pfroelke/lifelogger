@@ -12,7 +12,6 @@ import { SimpleLayoutComponent } from './layout/simple-layout/simple-layout.comp
 
 import { HeaderComponent } from './layout/components/header/header.component';
 import { FooterComponent } from './layout/components/footer/footer.component';
-import { MiddleContainerComponent } from './layout/components/middle-container/middle-container.component';
 import { SidenavComponent } from './layout/components/sidenav/sidenav.component';
 import { ContentComponent } from './layout/components/content/content.component';
 import { BoxComponent } from './layout/components/box/box.component';
@@ -47,7 +46,6 @@ import { CvEnglishComponent } from './cv-english/cv-english.component';
     SimpleLayoutComponent,
     IndexComponent,
     SidenavComponent,
-    MiddleContainerComponent,
     ContentComponent,
     WorkComponent,
     WorkdayComponent,

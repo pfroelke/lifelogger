@@ -1,33 +1,43 @@
 :host {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto 1fr;
 }
-app-middle-container {
-  app-sidenav {
-    flex: 0 0;
-    order: -1;
-    background: #ffffff;
-    border-right: 2px solid #c8c8c8;
-    overflow-x: hidden;
+app-header {
+  grid-column: 1/3;
+}
+app-footer {
+  grid-column: 1/3;
+}
+app-sidenav {
+  background: #ffffff;
+  border-right: 2px solid #c8c8c8;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 26px;
 
-    a {
-      display: block;
-      padding: 5px;
-      border-bottom: 1px solid #c8c8c8;
-      transition: all 0.15s linear;
-      &:hover {
-        background: #d7d7d7;
-        padding-left: 15px;
-      }
-    }
+  &.open {
+    width: 300px;
+    overflow-y: auto;
+  }
 
-    h2 {
-      display: block;
-      padding: 5px;
-      margin: 0;
-      border-bottom: 1px solid #c8c8c8;
-      font-size: 22px;
+  a {
+    display: block;
+    padding: 5px;
+    border-bottom: 1px solid #c8c8c8;
+    transition: all 0.15s linear;
+    &:hover {
+      background: #d7d7d7;
+      padding-left: 15px;
     }
+  }
+
+  h2 {
+    display: block;
+    padding: 5px;
+    margin: 0;
+    border-bottom: 1px solid #c8c8c8;
+    font-size: 22px;
   }
 }
