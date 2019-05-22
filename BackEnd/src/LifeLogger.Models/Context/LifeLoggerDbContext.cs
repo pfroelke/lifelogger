@@ -11,7 +11,6 @@ namespace LifeLogger.Models.Context
         {
         }
 
-        public DbSet<LoggedItem> LoggedItem { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using LifeLogger.ViewModels;
 using LifeLogger.Models.Entity;
 using LifeLogger.Models.Context;
 using LifeLogger.Services;
+using System;
 
 namespace LifeLogger.Web.Controllers
 {
@@ -29,26 +30,13 @@ namespace LifeLogger.Web.Controllers
             _userService = userService;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return Json(await _context.Users.ToListAsync());
         }
 
-        [HttpGet("isLoggedIn"), Authorize]
-        public IActionResult IsLoggedIn()
-        {
-            return Ok();
-        }
-
-        [HttpGet("Details")]
-        public IActionResult Details()
-        {
-            return Content("<xml>This is poorly formatted xml. Details</xml>", "text/xml");
-        }
-
         [HttpPost("Register")]
-        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel user)
         {
             IActionResult response = BadRequest(ModelState);
@@ -83,7 +71,13 @@ namespace LifeLogger.Web.Controllers
             return response;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("isLoggedIn"), Authorize]
+        public IActionResult IsLoggedIn()
+        {
+            return Ok();
+        }
+
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetById(string id)
         {
             IActionResult response = BadRequest(ModelState);
@@ -96,6 +90,32 @@ namespace LifeLogger.Web.Controllers
                     response = Json((UserViewModel)userFound);
                 }
                 else response = NotFound(id);
+            }
+            return response;
+        }
+
+        [HttpPut("WorkConfig"), Authorize]
+        public async Task<IActionResult> UpdateWorkSettings([FromBody] WorkConfigViewModel workConfig)
+        {
+            IActionResult response = BadRequest(ModelState);
+            if (ModelState.IsValid)
+            {
+                string token = Request.Headers["Authorization"];
+                // remove 'Bearer '
+                token = token.Remove(0, 7);
+
+                string userId = _JWTHandler.GetUserIdFromToken(token);
+
+                User userFound = await _userService.GetUserByIdAsync(userId);
+                if (userFound != null)
+                {
+                    userFound.CompanyName = workConfig.CompanyName;
+                    userFound.JobTitle = workConfig.JobTitle;
+                    userFound.IncomePerHour = workConfig.IncomePerHour;
+                    await _userService.UpdateUserAsync(userFound);
+                    response = Ok();
+                }
+                else response = NotFound(userId);
             }
             return response;
         }

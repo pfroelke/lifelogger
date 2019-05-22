@@ -23,7 +23,11 @@ namespace LifeLogger.Web
         {
             services.AddSingleton<IJWTHandler, JWTHandler>();
             services.AddScoped<IUserService, UserService>();
-            JWTTokenConfig.AddAuthentification(services, Configuration);
+
+            var sp = services.BuildServiceProvider();
+            var jwthandler = sp.GetService<IJWTHandler>();
+            jwthandler.AddAuthentification(services, Configuration);
+
             CORSConfig.AddScope(services);
             DBContextConfig.AddScope(services, Configuration);
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-worksettings',
@@ -15,7 +16,8 @@ export class WorksettingsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,11 @@ export class WorksettingsComponent implements OnInit {
         return;
     }
     console.log(this.settingsForm.value);
+
+    const { companyName, jobTitle, incomePerHour } = this.settingsForm.value;
+
+    this.userService.updateWorkConfig(companyName, jobTitle, incomePerHour);
+
   }
 
 }

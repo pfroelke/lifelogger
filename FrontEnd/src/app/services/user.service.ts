@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { tap, distinctUntilChanged, first } from 'rxjs/operators';
+import { tap, distinctUntilChanged, first, catchError } from 'rxjs/operators';
 
 import { AppConfig } from '../config/config';
 import { User } from '../models/user';
 import { longStackSupport } from 'q';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
 import { Jwt } from '../models/jwt';
 import { identifierName } from '@angular/compiler';
 
@@ -87,6 +87,13 @@ export class UserService {
     );
   }
 
+  updateWorkConfig(companyName: string, jobTitle: string, incomePerHour: string) {
+    return this.http.put(`${this.pathAPI}/User/WorkConfig`, { companyName, jobTitle, incomePerHour })
+    .pipe(
+      catchError(this.handleError)
+    ).subscribe();
+  }
+
   // update(user: User) {
   //     return this.http.put(`${this.pathAPI}/User/${user.id}`, user);
   // }
@@ -94,4 +101,20 @@ export class UserService {
   // delete(id: number) {
   //     return this.http.delete(`${this.pathAPI}/User/${id}`);
   // }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  }
 }

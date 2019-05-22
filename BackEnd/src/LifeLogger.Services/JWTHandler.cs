@@ -9,12 +9,19 @@ using Microsoft.Extensions.Configuration;
 
 using LifeLogger.Models.Entity;
 using LifeLogger.Commons;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace LifeLogger.Services
 {
     public interface IJWTHandler
     {
+        void AddAuthentification(IServiceCollection services, IConfiguration configuration);
+        TokenValidationParameters Parameters { get; }
         JWT CreateToken(User user);
+        IEnumerable<Claim> GetTokenClaims(string token);
+        string GetUserIdFromToken(string token);
     }
 
     public class JWTHandler : IJWTHandler
@@ -24,6 +31,8 @@ namespace LifeLogger.Services
         private readonly string _issuer;
         private readonly string _audience;
         private SigningCredentials _signingCredentials;
+        private SecurityKey _issuerSigningKey;
+        public TokenValidationParameters Parameters { get; private set; }
 
         public JWTHandler(IConfiguration configuration)
         {
@@ -31,13 +40,21 @@ namespace LifeLogger.Services
             _issuer = _config["Jwt:Issuer"] ?? string.Empty;
             _audience = _config["Jwt:Audience"] ?? string.Empty;
             InitializeRsa();
+            InitializeJwtParameters();
         }
 
         private void InitializeRsa()
         {
-            if (string.IsNullOrWhiteSpace(_config["Jwt:RSAPrivateKeyXml"]))
+            if (string.IsNullOrWhiteSpace(_config["Jwt:RSAPrivateKeyXml"]) ||
+                string.IsNullOrWhiteSpace(_config["Jwt:RSAPublicKeyXml"]))
             {
                 return;
+            }
+            using (RSA publicRsa = RSA.Create())
+            {
+                var publicKeyXml = File.ReadAllText(_config["Jwt:RSAPublicKeyXml"]);
+                publicRsa.RSAFromXML(publicKeyXml);
+                _issuerSigningKey = new RsaSecurityKey(publicRsa);
             }
             using (RSA privateRsa = RSA.Create())
             {
@@ -48,13 +65,45 @@ namespace LifeLogger.Services
             }
         }
 
+        public void AddAuthentification(IServiceCollection services, IConfiguration configuration)
+        {
+            using (RSA publicRsa = RSA.Create())
+            {
+                services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = Parameters;
+                    options.SaveToken = true;
+                });
+            }
+        }
+
+        private void InitializeJwtParameters()
+        {
+            Parameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+
+                ValidIssuer = _issuer,
+                ValidAudience = _audience,
+                IssuerSigningKey = _issuerSigningKey
+            };
+        }
+
         public JWT CreateToken(User user)
         {
             var exp = DateTime.UtcNow.AddDays(int.Parse(_config["Jwt:ExpiryDays"]));
             var now = DateTime.UtcNow;
             var claimsList = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var jwt = new JwtSecurityToken(_issuer,
@@ -71,6 +120,33 @@ namespace LifeLogger.Services
                 Token = token,
                 Expires = exp
             };
+        }
+
+        public IEnumerable<Claim> GetTokenClaims(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new ArgumentException("Given Argument is null or empty.");
+            }
+
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                ClaimsPrincipal ValidToken = jwtSecurityTokenHandler.ValidateToken(token, Parameters, out SecurityToken validatedToken);
+                return ValidToken.Claims;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetUserIdFromToken(string token)
+        {
+            List<Claim> claims = GetTokenClaims(token).ToList();
+            string userId = claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            return userId;
         }
     }
 }

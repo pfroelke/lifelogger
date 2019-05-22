@@ -11,6 +11,7 @@ namespace LifeLogger.Services
     public interface IUserService
     {
         Task AddUserAsync(User user);
+        Task UpdateUserAsync(User user);
         Task<User> GetUserByIdAsync(string id);
         Task<User> GetUserByNameAsync(string name);
     }
@@ -31,6 +32,13 @@ namespace LifeLogger.Services
         public async Task AddUserAsync(User user)
         {
             _context.Add(user);
+            await _context.SaveChangesAsync();
+            return;
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            _context.Update(user);
             await _context.SaveChangesAsync();
             return;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace LifeLogger.Models.Entity
@@ -14,5 +15,9 @@ namespace LifeLogger.Models.Entity
         public string LastName { get; set; }
         public DateTime RegistrationDate { get; set; }
         public byte[] Salt { get; set; }
+        public string CompanyName { get; set; }
+        public string JobTitle { get; set; }
+        public int IncomePerHour { get; set; }
+        public ICollection<Workday> Workdays { get; set; }
     }
 }
