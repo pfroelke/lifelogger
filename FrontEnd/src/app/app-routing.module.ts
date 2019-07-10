@@ -12,7 +12,7 @@ import { WorkComponent } from './components/work/work.component';
 import { TestComponent } from './components/test/test.component';
 
 import { AuthGuard } from './guards/auth.guard';
-// import { CvComponent } from './cv/cv.component';
+import { CvComponent } from './cv/cv.component';
 import { CvEnglishComponent } from './cv-english/cv-english.component';
 
 const routes: Routes = [
@@ -31,8 +31,6 @@ const routes: Routes = [
       { path: 'test', component: TestComponent }
     ]
   },
-  // { path: 'cv', component: CvComponent },
-  { path: 'cveng', component: CvEnglishComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-worksettings',
@@ -11,12 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class WorksettingsComponent implements OnInit {
   settingsForm: FormGroup;
-  submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private alertService: AlertService,
     private userService: UserService
   ) { }
 
@@ -26,23 +24,29 @@ export class WorksettingsComponent implements OnInit {
       jobTitle: ['', Validators.required],
       incomePerHour: ['', Validators.required],
     });
+    this.userService.currentUser.subscribe(user => this.updateForm(user));
   }
 
   get f() { return this.settingsForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
-
+    if (this.settingsForm.disabled) {
+      this.settingsForm.enable();
+      return;
+    }
     // stop here if form is invalid
     if (this.settingsForm.invalid) {
-        return;
+      return;
     }
-    console.log(this.settingsForm.value);
 
     const { companyName, jobTitle, incomePerHour } = this.settingsForm.value;
-
     this.userService.updateWorkConfig(companyName, jobTitle, incomePerHour);
-
   }
 
+  updateForm(user: User) {
+    this.settingsForm.controls.companyName.setValue(user.companyName);
+    this.settingsForm.controls.jobTitle.setValue(user.jobTitle);
+    this.settingsForm.controls.incomePerHour.setValue(user.incomePerHour);
+    this.settingsForm.disable();
+  }
 }

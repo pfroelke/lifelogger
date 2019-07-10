@@ -95,22 +95,33 @@ form {
         }
 
         button {
-        width: 100%;
-        font-size: 16px;
-        background-color: #f06d00;
-        border: 0;
-        border-radius: 5px;
-        padding: 10px 0;
-        color: white;
-        transition: background-color 1s;
+            width: 100%;
+            font-size: 16px;
+            background-color: #666666;
+            border: 0;
+            border-radius: 5px;
+            padding: 10px 0;
+            color: white;
+            transition: background-color 1s;
 
-        &:hover {
-            background-color: #d15b00;
-        }
+            &:hover {
+                background-color: #555555;
+            }
 
-        &.is-valid {
-            background-color: #1fce6d;
-        }
+            &.is-valid {
+                background-color: #1fce6d;
+                &:hover {
+                    background-color: #19a95a;//#77913b;
+                }
+            }
+
+            &.is-invalid {
+                background-color: #f06d00;
+        
+                &:hover {
+                  background-color: #d15b00;
+                }
+              }
         }
 
         div.bar {

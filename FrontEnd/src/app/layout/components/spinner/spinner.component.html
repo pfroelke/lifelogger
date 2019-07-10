@@ -1,0 +1,18 @@
+<h2>{{ this.title }}</h2>
+<div class="wrapper">
+  <svg class="spinner2">
+    <circle
+      class="main-circle"
+      [attr.cx]="wrapperMiddle"
+      [attr.cy]="wrapperMiddle"
+      [attr.r]="spinnerRadius"
+    ></circle>
+    <circle
+      class="stroke-shadow"
+      [attr.cx]="wrapperMiddle"
+      [attr.cy]="wrapperMiddle"
+      [attr.r]="spinnerRadius"
+    ></circle>
+  </svg>
+  <span><ng-content></ng-content></span>
+</div>

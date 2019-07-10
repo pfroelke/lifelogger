@@ -4,18 +4,20 @@ using LifeLogger.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LifeLogger.Web.Migrations
 {
     [DbContext(typeof(LifeLoggerDbContext))]
-    partial class LifeLoggerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190525115324_AddWorkdays")]
+    partial class AddWorkdays
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -80,28 +82,22 @@ namespace LifeLogger.Web.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<float>("IncMade");
-
-                    b.Property<float>("IncPerHour");
-
-                    b.Property<string>("OwnerId");
-
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<TimeSpan>("WorkTime");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Workdays");
                 });
 
             modelBuilder.Entity("LifeLogger.Models.Entity.Workday", b =>
                 {
-                    b.HasOne("LifeLogger.Models.Entity.User", "Owner")
+                    b.HasOne("LifeLogger.Models.Entity.User")
                         .WithMany("Workdays")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

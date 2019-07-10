@@ -1,13 +1,14 @@
 <h3>History</h3>
 <table>
-    <ng-container *ngIf="users.length">
-        <tbody *ngFor="let user of users; let i = index">
+    <ng-container *ngIf="workdays.length">
+        <tbody *ngFor="let workday of workdays; let i = index">
             <tr>
-            <td>{{i}}</td>
-            <td>{{user.userName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{i}}</td>
+            <td>{{workday.startDate | date:'dd.MM.yy' }}</td>
+            <td>{{workday.workTime | slice:0:5}}</td>
+            <td>${{workday.incMade}}</td>
+            <td>{{workday.comment}}</td>
+            <td><button (click)="details(workday.id)">Details</button></td>
+            <td><button (click)="remove(workday.id)">Delete</button></td>
             </tr>
         </tbody>
     </ng-container>

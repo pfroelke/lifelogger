@@ -13,6 +13,9 @@ namespace LifeLogger.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public string CompanyName { get; set; }
+        public string JobTitle { get; set; }
+        public int IncomePerHour { get; set; }
 
         public static implicit operator UserViewModel(User user)
         {
@@ -23,7 +26,10 @@ namespace LifeLogger.ViewModels
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                RegistrationDate = user.RegistrationDate
+                RegistrationDate = user.RegistrationDate,
+                CompanyName = user.CompanyName,
+                JobTitle = user.JobTitle,
+                IncomePerHour = user.IncomePerHour
             };
         }
     }

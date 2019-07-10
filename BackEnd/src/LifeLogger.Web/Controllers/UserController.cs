@@ -95,18 +95,13 @@ namespace LifeLogger.Web.Controllers
         }
 
         [HttpPut("WorkConfig"), Authorize]
-        public async Task<IActionResult> UpdateWorkSettings([FromBody] WorkConfigViewModel workConfig)
+        public async Task<IActionResult> UpdateWorkConfig([FromBody] WorkConfigViewModel workConfig)
         {
             IActionResult response = BadRequest(ModelState);
             if (ModelState.IsValid)
             {
-                string token = Request.Headers["Authorization"];
-                // remove 'Bearer '
-                token = token.Remove(0, 7);
+                User userFound = await _userService.GetUserByHeaderAsync(Request.Headers["Authorization"]);
 
-                string userId = _JWTHandler.GetUserIdFromToken(token);
-
-                User userFound = await _userService.GetUserByIdAsync(userId);
                 if (userFound != null)
                 {
                     userFound.CompanyName = workConfig.CompanyName;
@@ -115,7 +110,7 @@ namespace LifeLogger.Web.Controllers
                     await _userService.UpdateUserAsync(userFound);
                     response = Ok();
                 }
-                else response = NotFound(userId);
+                else response = NotFound();
             }
             return response;
         }

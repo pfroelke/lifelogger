@@ -6,7 +6,7 @@
         type="text"
         formControlName="companyName"
         class="form-control"
-        [ngClass]="!f.companyName.errors ? 'is-valid' : 'is-invalid'"
+        [ngClass]="!f.companyName.errors && !this.settingsForm.disabled ? 'is-valid' : 'is-invalid'"
         />
         <div class="bar"></div>
     </div>
@@ -16,7 +16,7 @@
         type="text"
         formControlName="jobTitle"
         class="form-control"
-        [ngClass]="!f.jobTitle.errors ? 'is-valid' : 'is-invalid'"
+        [ngClass]="!f.jobTitle.errors && !this.settingsForm.disabled ? 'is-valid' : 'is-invalid'"
         />
         <div class="bar"></div>
     </div>
@@ -26,7 +26,7 @@
         type="text"
         formControlName="incomePerHour"
         class="form-control"
-        [ngClass]="!f.incomePerHour.errors ? 'is-valid' : 'is-invalid'"
+        [ngClass]="!f.incomePerHour.errors && !this.settingsForm.disabled ? 'is-valid' : 'is-invalid'"
         />
         <div class="bar"></div>
     </div>
@@ -34,7 +34,7 @@
         <button
         [disabled]="loading"
         class="btn btn-primary"
-        [ngClass]="this.settingsForm.valid ? 'is-valid' : 'is-invalid'"
+        [ngClass]="this.settingsForm.valid && !this.settingsForm.disabled ? 'is-valid' : 'is-invalid'"
         >
         Update
         </button>

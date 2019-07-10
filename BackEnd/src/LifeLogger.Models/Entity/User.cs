@@ -18,6 +18,6 @@ namespace LifeLogger.Models.Entity
         public string CompanyName { get; set; }
         public string JobTitle { get; set; }
         public int IncomePerHour { get; set; }
-        public ICollection<Workday> Workdays { get; set; }
+        public virtual ICollection<Workday> Workdays { get; set; }
     }
 }

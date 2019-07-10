@@ -5,10 +5,8 @@ import { tap, distinctUntilChanged, first, catchError } from 'rxjs/operators';
 
 import { AppConfig } from '../config/config';
 import { User } from '../models/user';
-import { longStackSupport } from 'q';
 import { BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
 import { Jwt } from '../models/jwt';
-import { identifierName } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +16,7 @@ export class UserService {
 
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+  private privateUser: User;
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -48,7 +47,6 @@ export class UserService {
       localStorage.setItem('auth_token', res.jwt.token);
       localStorage.setItem('exp', res.jwt.expires as unknown as string);
       this.currentUserSubject.next(res.user);
-      console.log(res.user);
     }));
   }
 
@@ -66,14 +64,20 @@ export class UserService {
   }
 
   isLoggedIn() {
+    const token = localStorage.getItem('auth_token');
+    if (token == null) {
+      return Promise.resolve(false);
+    }
     return new Promise(resolve => {
       this.http.get(`${this.pathAPI}/User/isLoggedIn`)
       .pipe(first())
       .subscribe(
           data => {
             const id = localStorage.getItem('id');
-            this.getById(id).pipe(first())
+            this.getById(id)
+            .pipe(first())
             .subscribe(user => {
+              this.privateUser = user;
               this.currentUserSubject.next(user);
               this.isAuthenticatedSubject.next(true);
             });
@@ -81,17 +85,24 @@ export class UserService {
           },
           error => {
             this.logOut();
+            console.log(error.error);
             resolve(false);
           });
       }
     );
   }
 
-  updateWorkConfig(companyName: string, jobTitle: string, incomePerHour: string) {
+  updateWorkConfig(companyName: string, jobTitle: string, incomePerHour: number) {
     return this.http.put(`${this.pathAPI}/User/WorkConfig`, { companyName, jobTitle, incomePerHour })
     .pipe(
       catchError(this.handleError)
-    ).subscribe();
+    ).subscribe(
+      data => {
+        this.privateUser.companyName = companyName;
+        this.privateUser.jobTitle = jobTitle;
+        this.privateUser.incomePerHour = incomePerHour;
+      }
+    );
   }
 
   // update(user: User) {

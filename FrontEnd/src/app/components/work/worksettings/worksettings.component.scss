@@ -5,4 +5,20 @@ form {
     div.form-group {
       width: 100%;
     }
+
+    button {
+      background-color: #666666;
+
+      &:hover {
+        background-color: #555555;
+      }
+
+      &.is-valid {
+        background-color: #1fce6d;//#8CAA46;
+
+        &:hover {
+          background-color: #19a95a;//#77913b;
+        }
+      }
+    }
 }

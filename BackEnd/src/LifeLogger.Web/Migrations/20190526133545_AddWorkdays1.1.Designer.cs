@@ -4,14 +4,16 @@ using LifeLogger.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LifeLogger.Web.Migrations
 {
     [DbContext(typeof(LifeLoggerDbContext))]
-    partial class LifeLoggerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190526133545_AddWorkdays1.1")]
+    partial class AddWorkdays11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,15 +82,9 @@ namespace LifeLogger.Web.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<float>("IncMade");
-
-                    b.Property<float>("IncPerHour");
-
                     b.Property<string>("OwnerId");
 
                     b.Property<DateTime>("StartDate");
-
-                    b.Property<TimeSpan>("WorkTime");
 
                     b.HasKey("Id");
 

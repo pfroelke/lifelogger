@@ -11,7 +11,8 @@ namespace LifeLogger.Web.App_Start
         public static void AddScope(IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<LifeLoggerDbContext>(options =>
-            options.UseSqlServer(config.GetConnectionString("LifeLogger"), b => b.MigrationsAssembly("LifeLogger.Web")));
+            options.UseLazyLoadingProxies()
+            .UseSqlServer(config.GetConnectionString("LifeLogger"), b => b.MigrationsAssembly("LifeLogger.Web")));
         }
     }
 }

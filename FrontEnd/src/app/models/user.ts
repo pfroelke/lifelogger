@@ -5,4 +5,7 @@ export class User {
     lastName: string;
     email: string;
     registrationDate: Date;
+    companyName: string;
+    jobTitle: string;
+    incomePerHour: number;
 }

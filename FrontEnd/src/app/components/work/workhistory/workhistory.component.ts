@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
 import { first } from 'rxjs/operators';
+import { WorkService } from 'src/app/services/work.service';
+import { Workday } from 'src/app/models/workday';
 
 @Component({
   selector: 'app-workhistory',
@@ -9,21 +9,30 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./workhistory.component.scss']
 })
 export class WorkhistoryComponent implements OnInit {
-  users: User[] = [];
+  workdays: Workday[] = [];
 
-  constructor( private userService: UserService ) { }
+  constructor( private workService: WorkService ) {
+    workService.workdays.subscribe(workdays => this.updateWorkdays(workdays));
+   }
 
   ngOnInit() {
     this.loadAllValues();
   }
 
   private loadAllValues() {
-    this.userService
-      .getUsers()
+    this.workService
+      .getWorkdays()
       .pipe(first())
-      .subscribe(users => {
-        this.users = users;
+      .subscribe(workdays => {
+        this.workdays = workdays;
       });
   }
 
+  private updateWorkdays(workdays: Workday[]) {
+    this.workdays = workdays;
+  }
+
+  private remove(workdayId: string) {
+    this.workService.removeWorkday(workdayId);
+  }
 }

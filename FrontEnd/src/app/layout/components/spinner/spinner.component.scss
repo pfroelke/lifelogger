@@ -1,0 +1,66 @@
+:host {
+  float: left;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    text-align: center;
+  }
+
+  div.wrapper {
+    position: relative;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.4em;
+
+    svg.spinner2 {
+      width: var(--wrapperSize);
+      height: var(--wrapperSize);
+      circle {
+        rotate: (-90deg);
+        stroke-width: var(--width);
+        transform-origin: var(--wrapperMiddle) var(--wrapperMiddle) 0;
+
+        &.main-circle {
+          fill: transparent;
+          stroke: #c8c8c8;
+        }
+        &.stroke-shadow {
+          fill: transparent;
+          stroke: #1fce6d;
+          stroke-linecap: round;
+          stroke-dasharray: var(--strokeLength);
+          animation: spinner 0.5s linear both;
+        }
+      }
+      @keyframes spinner {
+        0% {
+          stroke-dashoffset: var(--strokeLength);
+        }
+        100% {
+          stroke-dashoffset: var(--strokeOffset);
+        }
+      }
+    }
+    // centered value inside circle
+    span {
+      // --currValue: 0;
+      position: absolute;
+      z-index: 1;
+      // font-size: 1.5em;
+      text-align: center;
+      // &::after {
+      //   content: counter(--currValue) '%';
+      //   animation: update 0.5s linear both;
+      //   @keyframes update {
+      //     100% {
+      //       font-size: 50px;
+      //       --currValue: 70;
+      //     }
+      //   }
+      // }
+    }
+  }
+}

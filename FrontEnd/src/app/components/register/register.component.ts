@@ -14,8 +14,6 @@ import { UserService } from '../../services/user.service';
 })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
-    invalidRegister = false;
-    submitted = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,17 +37,13 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
-
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
-        console.log(this.registerForm.value);
 
         const { userName, firstName, lastName, email, password } = this.registerForm.value;
         const user = {
@@ -65,13 +59,11 @@ export class RegisterComponent implements OnInit {
             .subscribe(
                 data => {
                     // this.alertService.success('Registration successful', true);
-                    this.invalidRegister = false;
                     this.router.navigate(['/']);
                 },
                 error => {
                     // this.alertService.error(error.error);
                     console.log(error.error);
-                    this.invalidRegister = true;
                 });
     }
 }

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import * as crypto from 'crypto-js';
 
-import { AlertService } from '../../services/alert.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -14,15 +13,12 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  invalidLogin = false;
-  submitted = false;
   response: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService,
-    private alertService: AlertService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -35,13 +31,10 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
     onSubmit() {
-      this.submitted = true;
-
       // stop here if form is invalid
       if (this.loginForm.invalid) {
           return;
       }
-      console.log(this.loginForm.value);
 
       const { userName, password } = this.loginForm.value;
 
@@ -50,15 +43,13 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             // this.alertService.success('Registration successful', true);
-            console.log('login successful');
-            this.invalidLogin = false;
+            console.log('Login successful!');
             this.router.navigate(['/dashboard']);
           },
           error => {
             // this.alertService.error(error.error);
-            console.log('login failed');
+            console.log('Login failed!');
             console.log(error.error);
-            this.invalidLogin = true;
           });
     }
 }

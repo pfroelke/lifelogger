@@ -29,8 +29,7 @@ import { WorksettingsComponent } from './components/work/worksettings/worksettin
 
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 
-// import { CvComponent } from './cv/cv.component';
-import { CvEnglishComponent } from './cv-english/cv-english.component';
+import { SpinnerComponent } from './layout/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -52,8 +51,7 @@ import { CvEnglishComponent } from './cv-english/cv-english.component';
     WorkhistoryComponent,
     WorksettingsComponent,
     BoxComponent,
-    // CvComponent,
-    CvEnglishComponent
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

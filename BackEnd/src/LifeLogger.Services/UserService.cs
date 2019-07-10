@@ -11,28 +11,35 @@ namespace LifeLogger.Services
     public interface IUserService
     {
         Task AddUserAsync(User user);
-        Task UpdateUserAsync(User user);
         Task<User> GetUserByIdAsync(string id);
         Task<User> GetUserByNameAsync(string name);
+        Task<User> GetUserByHeaderAsync(string header);
+        Task UpdateUserAsync(User user);
+        Task DeleteUserAsync(User user);
     }
     public class UserService : IUserService
     {
         private readonly LifeLoggerDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IJWTHandler _JWTHandler;
 
-        public UserService(LifeLoggerDbContext context, IConfiguration configuration)
+        public UserService(LifeLoggerDbContext context, IConfiguration configuration, IJWTHandler JWTHandler)
         {
             _context = context;
             _config = configuration;
+            _JWTHandler = JWTHandler;
         }
-        //public async Task<IEnumerable<User>> ListAsync()
-        //{
-        //}
 
         public async Task AddUserAsync(User user)
         {
             _context.Add(user);
             await _context.SaveChangesAsync();
+            return;
+        }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            // TODO
             return;
         }
 
@@ -55,6 +62,20 @@ namespace LifeLogger.Services
             User userFound = null;
             userFound = await _context.Users.Where(x => x.UserName == name).FirstOrDefaultAsync();
             return userFound;
+        }
+
+        public async Task<User> GetUserByHeaderAsync(string header)
+        {
+            string token = GetTokenFromHeader(header);
+            string userId = _JWTHandler.GetUserIdFromToken(token);
+            User userFound = await GetUserByIdAsync(userId);
+            return userFound;
+        }
+
+        public string GetTokenFromHeader(string header)
+        {
+            // remove 'Bearer '
+            return header.Remove(0, 7);
         }
     }
 }

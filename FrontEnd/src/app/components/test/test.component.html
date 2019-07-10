@@ -1,17 +1,38 @@
 <div class="main-content container">
   <h2>testing site</h2>
-  <table>
+  <!-- <table>
     <ng-container *ngIf="users.length">
-       <tbody *ngFor="let user of users; let i = index">
-         <tr>
-           <td>{{i}}</td>
-           <td>{{user.userName}}</td>
-           <td>{{user.email}}</td>
-           <td>{{user.firstName}}</td>
-           <td>{{user.lastName}}</td>
-           <td>{{user.passwordHash}}</td>
-         </tr>
-       </tbody>
-     </ng-container>
-   </table>
+      <tbody *ngFor="let user of users; let i = index">
+        <tr>
+          <td>{{ i }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.passwordHash }}</td>
+        </tr>
+      </tbody>
+    </ng-container>
+  </table>
+
+  <div class="c100">
+    <div class="slice"></div>
+    <span>70%</span>
+  </div>
+
+  <div class="wrapper">
+    <div class="spinner pie"></div>
+    <div class="filler pie"></div>
+    <div class="mask pie"></div>
+  </div> -->
+
+  <div class="spinner-wrapper">
+    <svg class="spinner2">
+      <circle class="main-circle" cx="155px" cy="155" r="150"></circle>
+    <circle class="stroke-shadow" cx="155" cy="155" r="150"></circle>
+    </svg>
+    <span>70%</span>
+  </div>
+  <app-spinner [size]="400" [value]="70" [width]="10">70/100</app-spinner>
+  <app-spinner [size]="400" [value]="70" [width]="10">70/100</app-spinner>
 </div>

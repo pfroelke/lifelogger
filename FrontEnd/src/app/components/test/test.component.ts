@@ -10,10 +10,17 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-
   users: User[] = [];
+  pos = 0.5;
 
-  constructor( private userService: UserService ) { }
+  constructor( private userService: UserService ) {
+    // CSS.registerProperty({
+    //   name: '--pos',
+    //   syntax: '<length-percentage>',
+    //   initialValue: '0%',
+    //   inherits: true
+    // });
+   }
 
   ngOnInit() {
     this.loadAllValues();

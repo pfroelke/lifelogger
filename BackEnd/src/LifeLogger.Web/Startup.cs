@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using LifeLogger.Web.App_Start;
 using LifeLogger.Services;
+using Newtonsoft.Json;
 
 namespace LifeLogger.Web
 {
@@ -23,6 +24,7 @@ namespace LifeLogger.Web
         {
             services.AddSingleton<IJWTHandler, JWTHandler>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWorkdayService, WorkdayService>();
 
             var sp = services.BuildServiceProvider();
             var jwthandler = sp.GetService<IJWTHandler>();
@@ -31,7 +33,9 @@ namespace LifeLogger.Web
             CORSConfig.AddScope(services);
             DBContextConfig.AddScope(services, Configuration);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
 
             //services.AddDbContext<ExampleDbContext>(options =>
             //    options.UseInMemoryDatabase("ExampleInMemoryDB"));
