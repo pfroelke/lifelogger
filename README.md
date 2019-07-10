@@ -1,3 +1,4 @@
+# (Suspended)
 # Migration Database
 ## Create Database
 Add-Migration InitialCreate -Context LifeLoggerDbContext

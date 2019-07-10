@@ -4,6 +4,7 @@
 cv.component.*
 cv-english.component.*
 FrontEnd/src/assets/cv/*
+BackEnd/src/LifeLogger.Web/Migrations
 
 # User-specific files
 *.suo
